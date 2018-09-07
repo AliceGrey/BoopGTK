@@ -1,0 +1,11 @@
+/home/allie/Projects/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.csprojResolveAssemblyReference.cache
+/home/allie/Projects/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.csproj.CoreCompileInputs.cache
+/home/allie/Projects/BoopGTK/BoopGTK/bin/Debug/BoopGTK.exe.config
+/home/allie/Projects/BoopGTK/BoopGTK/bin/Debug/BoopGTK.exe
+/home/allie/Projects/BoopGTK/BoopGTK/bin/Debug/BoopGTK.pdb
+/home/allie/Projects/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.exe
+/home/allie/Projects/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.pdb
+/home/allie/Documents/Dev/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.csprojResolveAssemblyReference.cache
+/home/allie/Documents/Dev/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.csproj.CoreCompileInputs.cache
+/home/allie/Documents/Dev/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.exe
+/home/allie/Documents/Dev/BoopGTK/BoopGTK/obj/x86/Debug/BoopGTK.pdb
