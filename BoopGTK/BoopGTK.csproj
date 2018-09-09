@@ -41,6 +41,12 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\icon.png">
+        <LogicalName>icon.snek</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\logo.png">
+        <LogicalName>logo.snek</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -48,9 +54,9 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IPInfo.cs" />
     <Compile Include="CsHTTPServer.cs" />
     <Compile Include="CsHTTPRequest.cs" />
+    <Compile Include="NetUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

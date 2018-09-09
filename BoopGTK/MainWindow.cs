@@ -12,35 +12,30 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using rmortega77.CsHTTPServer;
 using Gtk;
+using BoopGTK;
 
 public partial class MainWindow : Gtk.Window
 {
+    CsHTTPServer HTTPServer;
+    System.Net.Sockets.Socket s; //Socket to tell FBI where the server is
+    string FilesToBoop; //Files to be boop'd
+    string ActiveDir; //Used to mount the server
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
-        hostipEntry.Text = GetLocalIPAddress();
-      //  CsHTTPServer HTTPServer;
-      //  System.Net.Sockets.Socket s; //Socket to tell FBI where the server is
-      //  string[] FilesToBoop; //Files to be boop'd
-      //  string ActiveDir; //Used to mount the server
+        hostipEntry.Text = NetUtils.GetLocalIPAddress();
         targetIP.Text = ConfigurationManager.AppSettings["saved3DSIP"];
-        //rgetIP.Text;
-        //  chkGuess.Checked = (bool)Properties.Settings.Default["bGuess"];
-        //  txt3DS.Enabled = !chkGuess.Checked;
+       
+    }
+    private void BtnFindIP_Clicked(object sender, EventArgs eventArgs)
+    {
+        string DSip = NetUtils.GetDSIP();
+        Debug.Print(DSip);
+        targetIP.Text = DSip;
+
     }
   
-    public static string GetLocalIPAddress()
-    {
-        var host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach (var ip in host.AddressList)
-        {
-            if (ip.AddressFamily == AddressFamily.InterNetwork)
-            {
-                return ip.ToString();
-            }
-        }
-        throw new Exception("No network adapters with an IPv4 address in the system!");
-    }
+
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
@@ -48,5 +43,12 @@ public partial class MainWindow : Gtk.Window
         a.RetVal = true;
     }
 
+    protected void OnLocateDSbtnClicked(object sender, EventArgs e)
+    {
+        NetUtils.GetDSIP();
+    }
 
+    protected void btnFindIP_Clicked(object sender, EventArgs e)
+    {
+    }
 }

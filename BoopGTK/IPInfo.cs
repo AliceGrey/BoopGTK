@@ -71,14 +71,20 @@ namespace BoopGTK
 
                 foreach (var arp in GetARPResult().Split(new char[] { '\n', '\r' }))
                 {
+
                     // Parse out all the MAC / IP Address combinations
                     if (!string.IsNullOrEmpty(arp))
                     {
                         var pieces = (from piece in arp.Split(new char[] { ' ', '\t' })
                                       where !string.IsNullOrEmpty(piece)
                                       select piece).ToArray();
+                        Console.WriteLine(pieces[0].ToString());
+                        Console.WriteLine(pieces[1].ToString());
+                        Console.WriteLine(pieces[2].ToString());
+                        Console.ReadLine();
                         if (pieces.Length == 3)
                         {
+
                             list.Add(new IPInfo(pieces[1], pieces[0]));
                         }
                     }

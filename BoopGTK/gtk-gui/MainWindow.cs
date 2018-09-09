@@ -27,11 +27,15 @@ public partial class MainWindow
 
 	private global::Gtk.Image image1;
 
-	private global::Gtk.Entry hostipEntry;
+	private global::Gtk.Label dsiplabel;
+
+	private global::Gtk.Entry targetIP;
+
+	private global::Gtk.Button locateDSbtn;
 
 	private global::Gtk.Label ComputerIPLabel;
 
-	private global::Gtk.Entry targetIP;
+	private global::Gtk.Entry hostipEntry;
 
 	protected virtual void Build()
 	{
@@ -64,7 +68,7 @@ public partial class MainWindow
 		this.AddAccelGroup(this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString("BoopGTK");
-		this.Icon = global::Gdk.Pixbuf.LoadFromResource("BoopGTK.snekicon.png");
+		this.Icon = global::Gdk.Pixbuf.LoadFromResource("icon.snek");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		this.Resizable = false;
 		this.DefaultWidth = 400;
@@ -89,11 +93,47 @@ public partial class MainWindow
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.image1 = new global::Gtk.Image();
 		this.image1.Name = "image1";
-		this.image1.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("BoopGTK.Boop1.png");
+		this.image1.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("logo.snek");
 		this.fixed1.Add(this.image1);
 		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.image1]));
 		w4.X = 25;
 		w4.Y = 50;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.dsiplabel = new global::Gtk.Label();
+		this.dsiplabel.Name = "dsiplabel";
+		this.dsiplabel.LabelProp = global::Mono.Unix.Catalog.GetString("DS IP Adress:");
+		this.fixed1.Add(this.dsiplabel);
+		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.dsiplabel]));
+		w5.X = 26;
+		w5.Y = 268;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.targetIP = new global::Gtk.Entry();
+		this.targetIP.CanFocus = true;
+		this.targetIP.Name = "targetIP";
+		this.targetIP.IsEditable = true;
+		this.targetIP.InvisibleChar = '•';
+		this.fixed1.Add(this.targetIP);
+		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.targetIP]));
+		w6.X = 123;
+		w6.Y = 262;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.locateDSbtn = new global::Gtk.Button();
+		this.locateDSbtn.CanFocus = true;
+		this.locateDSbtn.Name = "locateDSbtn";
+		this.locateDSbtn.UseUnderline = true;
+		this.locateDSbtn.Label = global::Mono.Unix.Catalog.GetString("Find IP");
+		this.fixed1.Add(this.locateDSbtn);
+		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.locateDSbtn]));
+		w7.X = 290;
+		w7.Y = 261;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.ComputerIPLabel = new global::Gtk.Label();
+		this.ComputerIPLabel.Name = "ComputerIPLabel";
+		this.ComputerIPLabel.LabelProp = global::Mono.Unix.Catalog.GetString("PC IP Adress:");
+		this.fixed1.Add(this.ComputerIPLabel);
+		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.ComputerIPLabel]));
+		w8.X = 23;
+		w8.Y = 221;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.hostipEntry = new global::Gtk.Entry();
 		this.hostipEntry.CanFocus = true;
@@ -102,27 +142,9 @@ public partial class MainWindow
 		this.hostipEntry.IsEditable = false;
 		this.hostipEntry.InvisibleChar = '•';
 		this.fixed1.Add(this.hostipEntry);
-		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.hostipEntry]));
-		w5.X = 216;
-		w5.Y = 212;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.ComputerIPLabel = new global::Gtk.Label();
-		this.ComputerIPLabel.Name = "ComputerIPLabel";
-		this.ComputerIPLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Computer IP Adress:");
-		this.fixed1.Add(this.ComputerIPLabel);
-		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.ComputerIPLabel]));
-		w6.X = 66;
-		w6.Y = 217;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.targetIP = new global::Gtk.Entry();
-		this.targetIP.CanFocus = true;
-		this.targetIP.Name = "targetIP";
-		this.targetIP.IsEditable = true;
-		this.targetIP.InvisibleChar = '•';
-		this.fixed1.Add(this.targetIP);
-		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.targetIP]));
-		w7.X = 223;
-		w7.Y = 264;
+		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.hostipEntry]));
+		w9.X = 121;
+		w9.Y = 214;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
@@ -130,5 +152,6 @@ public partial class MainWindow
 		}
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.locateDSbtn.Clicked += new global::System.EventHandler(this.BtnFindIP_Clicked);
 	}
 }

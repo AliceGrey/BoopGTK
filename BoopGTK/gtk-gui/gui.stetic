@@ -48,7 +48,7 @@
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">BoopGTK</property>
-    <property name="Icon">file:./Images/snekicon.png</property>
+    <property name="Icon">resource:icon.snek</property>
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Resizable">False</property>
     <property name="DefaultWidth">400</property>
@@ -88,11 +88,57 @@
         <child>
           <widget class="Gtk.Image" id="image1">
             <property name="MemberName" />
-            <property name="Pixbuf">resource:BoopGTK.Boop1.png</property>
+            <property name="Pixbuf">resource:logo.snek</property>
           </widget>
           <packing>
             <property name="X">25</property>
             <property name="Y">50</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="dsiplabel">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">DS IP Adress:</property>
+          </widget>
+          <packing>
+            <property name="X">26</property>
+            <property name="Y">268</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="targetIP">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">•</property>
+          </widget>
+          <packing>
+            <property name="X">123</property>
+            <property name="Y">262</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="locateDSbtn">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Find IP</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="BtnFindIP_Clicked" />
+          </widget>
+          <packing>
+            <property name="X">290</property>
+            <property name="Y">261</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="ComputerIPLabel">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">PC IP Adress:</property>
+          </widget>
+          <packing>
+            <property name="X">23</property>
+            <property name="Y">221</property>
           </packing>
         </child>
         <child>
@@ -104,40 +150,8 @@
             <property name="InvisibleChar">•</property>
           </widget>
           <packing>
-            <property name="X">216</property>
-            <property name="Y">212</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="ComputerIPLabel">
-            <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">Computer IP Adress:</property>
-          </widget>
-          <packing>
-            <property name="X">66</property>
-            <property name="Y">217</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="targetIP">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">•</property>
-          </widget>
-          <packing>
-            <property name="X">223</property>
-            <property name="Y">264</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Image" id="image2">
-            <property name="MemberName" />
-            <property name="Pixbuf">file:./Images/Boop1.png</property>
-          </widget>
-          <packing>
-            <property name="X">12</property>
-            <property name="Y">39</property>
+            <property name="X">121</property>
+            <property name="Y">214</property>
           </packing>
         </child>
       </widget>
