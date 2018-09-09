@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/BoopGTK.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="530 529">
+  <widget class="Gtk.Window" id="MainWindow" design-size="530 563">
     <action-group name="Default">
       <action id="FileAction">
         <property name="Type">Action</property>
@@ -108,6 +108,10 @@
         <child>
           <widget class="Gtk.Entry" id="targetIP">
             <property name="MemberName" />
+            <property name="Tooltip" translatable="yes">Open FBI
+Select Remote Install
+Select Receive urls
+Enter the IP without the port</property>
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
             <property name="InvisibleChar">•</property>
@@ -120,6 +124,7 @@
         <child>
           <widget class="Gtk.Button" id="locateDSbtn">
             <property name="MemberName" />
+            <property name="Visible">False</property>
             <property name="CanFocus">True</property>
             <property name="Type">TextOnly</property>
             <property name="Label" translatable="yes">Find IP</property>
@@ -152,6 +157,45 @@
           <packing>
             <property name="X">121</property>
             <property name="Y">214</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+            <property name="MemberName" />
+            <property name="WidthRequest">375</property>
+            <property name="HeightRequest">200</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.NodeView" id="nodeview1">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+                <property name="EnableSearch">False</property>
+                <property name="Reorderable">True</property>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="X">13</property>
+            <property name="Y">354</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="PickFiles">
+            <property name="MemberName" />
+            <property name="WidthRequest">200</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Pick Files</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnPickFilesClicked" />
+          </widget>
+          <packing>
+            <property name="X">67</property>
+            <property name="Y">307</property>
           </packing>
         </child>
       </widget>

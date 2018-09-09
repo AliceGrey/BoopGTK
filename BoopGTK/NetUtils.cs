@@ -29,26 +29,12 @@ namespace BoopGTK
         }
         public static string GetDSIP()
         {
-           // var pairs = GetIpPairs();
-            /* if (MainClass.IsUnix())
-             {
-                 for (int i = 0; i < pairs.Count; i++)
-                 {
-                     string MAC = pairs[i].MacAddress.Replace(":", "");
-                     Console.WriteLine(pairs[i].MacAddress);
-                 }
-             }*/
             if (MainClass.IsUnix())
             {
-                foreach (var item in GetIpPairs())
+                foreach (var item in GetIpPairsUnix())
                 {
-                    Console.WriteLine(item.IpAddress);
                     string MAC = item.MacAddress;
-                    MAC = MAC.Replace(":", "");
-                    if (MAC.Length > 0){
-                        MAC = MAC.Substring(0, 6);
-                    }
-                    MAC = MAC.ToUpper();
+          
                     if (Nintendo.Contains(MAC))
                     {
                         Console.WriteLine("Found");
@@ -58,47 +44,102 @@ namespace BoopGTK
                     }
                 }
             } else {
-                foreach (var item in GetIpPairs())
+                foreach (var item in GetIPPairsWindows())
                 {
-                    string MAC = item.MacAddress;
-                    MAC = MAC.Replace("-", "");
-                    if (MAC.Length > 0)
-                    {
-                        MAC = MAC.Substring(0, 6);
-                    }
-                    MAC = MAC.ToUpper();
+                    string MAC = item.IpAddress;
                     if (Nintendo.Contains(MAC))
                     {
+                        Console.WriteLine("Found");
+                        Console.WriteLine(item.MacAddress);
+                        Console.WriteLine(item.IpAddress);
                         return item.IpAddress;
                     }
                 }
             }
 
-            return "Not found"; //Empty string means "No 3ds in range". To be used by the main thread to inform the user. (should I raise an exception? :S )
+            return "Not found";
+        }
+        public static List<MacIpPair> GetIPPairsWindows()
+        {
+            try
+            {
+                List<MacIpPair> list = new List<MacIpPair>();
+
+                foreach (var arp in GetARPResult().Split(new char[] { '\n', '\r' }))
+                {
+                    // Parse out all the MAC / IP Address combinations
+                    if (!string.IsNullOrEmpty(arp))
+                    {
+                        var pieces = (from piece in arp.Split(new char[] { ' ', '\t' })
+                                      where !string.IsNullOrEmpty(piece)
+                                      select piece).ToArray();
+                        if (pieces.Length == 3)
+                        {
+                            //Clean the mac adress since we only need the first 6
+                            string MAC = pieces[1];
+                            MAC = MAC.Replace("-", "");
+                            if (MAC.Length > 0)
+                            {
+                                MAC = MAC.Substring(0, 6);
+                            }
+                            MAC = MAC.ToUpper();
+
+                            list.Add(new MacIpPair()
+                            {
+                                MacAddress = MAC,
+                                IpAddress = pieces[0]
+                            });
+                        }
+                    }
+                }
+
+                // Return list of IPInfo objects containing MAC / IP Address combinations
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetIPPairsWindows: Error Parsing 'arp -a' results", ex);
+            }
         }
           
-        static List<MacIpPair> GetIpPairs()
+        public static List<MacIpPair> GetIpPairsUnix()
         {
-            List<MacIpPair> pairs = new List<MacIpPair>();
-            string arp = GetARPResult();
-
-            Regex pattern = new Regex("(?<ip>([0-9]{1,3}\\.?){4})|(?<mac>([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))");
-            MatchCollection mc = pattern.Matches(arp);
-            foreach (Match m in mc)
+            try
             {
-                pairs.Add(new MacIpPair()
+                List<MacIpPair> pairs = new List<MacIpPair>();
+                string arp = GetARPResult();
+
+                Regex pattern = new Regex(@"(?<ip>([0-9]{1,3}\.?){4})\S\s\S+\s(?<mac>([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))");
+                MatchCollection mc = pattern.Matches(arp);
+                foreach (Match m in mc)
                 {
-                    MacAddress = m.Groups["mac"].Value,
-                    IpAddress = m.Groups["ip"].Value
+                    //Clean the mac adress since we only need the first 6
+                    string MAC = m.Groups["mac"].Value;
+                    MAC = MAC.Replace(":", "");
+                    if (MAC.Length > 0)
+                    {
+                        MAC = MAC.Substring(0, 6);
+                    }
+                    MAC = MAC.ToUpper();
 
-                });
+                    Console.WriteLine("Pair Test");
+                    Console.WriteLine(MAC);
+                    Console.WriteLine(m.Groups["ip"].Value);
 
+                    pairs.Add(new MacIpPair()
+                    {
+                        MacAddress = MAC,
+                        IpAddress = m.Groups["ip"].Value
+                    });
+
+                }
+                return pairs;
             }
-            return pairs;
+            catch (Exception ex)
+            {
+                throw new Exception("GetIpPairsUnix: Error Parsing 'arp -a' results", ex);
+            }
         }
-
-
-
 
 
         public struct MacIpPair

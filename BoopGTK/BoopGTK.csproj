@@ -57,6 +57,8 @@
     <Compile Include="CsHTTPServer.cs" />
     <Compile Include="CsHTTPRequest.cs" />
     <Compile Include="NetUtils.cs" />
+    <Compile Include="CIAList.cs" />
+    <Compile Include="FileUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

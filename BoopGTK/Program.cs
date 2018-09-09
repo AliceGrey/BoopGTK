@@ -5,6 +5,7 @@ namespace BoopGTK
 {
     class MainClass
     {
+
         public static void Main(string[] args)
         {
             Application.Init();
@@ -26,5 +27,6 @@ namespace BoopGTK
                 return false;
             }
         }
+
     }
 }

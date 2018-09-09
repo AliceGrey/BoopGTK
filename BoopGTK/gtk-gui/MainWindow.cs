@@ -37,6 +37,12 @@ public partial class MainWindow
 
 	private global::Gtk.Entry hostipEntry;
 
+	private global::Gtk.ScrolledWindow GtkScrolledWindow;
+
+	private global::Gtk.NodeView nodeview1;
+
+	private global::Gtk.Button PickFiles;
+
 	protected virtual void Build()
 	{
 		global::Stetic.Gui.Initialize(this);
@@ -108,6 +114,7 @@ public partial class MainWindow
 		w5.Y = 268;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.targetIP = new global::Gtk.Entry();
+		this.targetIP.TooltipMarkup = "Open FBI\nSelect Remote Install\nSelect Receive urls\nEnter the IP without the port";
 		this.targetIP.CanFocus = true;
 		this.targetIP.Name = "targetIP";
 		this.targetIP.IsEditable = true;
@@ -145,13 +152,43 @@ public partial class MainWindow
 		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.hostipEntry]));
 		w9.X = 121;
 		w9.Y = 214;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
+		this.GtkScrolledWindow.WidthRequest = 375;
+		this.GtkScrolledWindow.HeightRequest = 200;
+		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+		this.nodeview1 = new global::Gtk.NodeView();
+		this.nodeview1.CanFocus = true;
+		this.nodeview1.Name = "nodeview1";
+		this.nodeview1.EnableSearch = false;
+		this.nodeview1.Reorderable = true;
+		this.GtkScrolledWindow.Add(this.nodeview1);
+		this.fixed1.Add(this.GtkScrolledWindow);
+		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
+		w11.X = 13;
+		w11.Y = 354;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.PickFiles = new global::Gtk.Button();
+		this.PickFiles.WidthRequest = 200;
+		this.PickFiles.CanFocus = true;
+		this.PickFiles.Name = "PickFiles";
+		this.PickFiles.UseUnderline = true;
+		this.PickFiles.Label = global::Mono.Unix.Catalog.GetString("Pick Files");
+		this.fixed1.Add(this.PickFiles);
+		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.PickFiles]));
+		w12.X = 67;
+		w12.Y = 307;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
+		this.locateDSbtn.Hide();
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.locateDSbtn.Clicked += new global::System.EventHandler(this.BtnFindIP_Clicked);
+		this.PickFiles.Clicked += new global::System.EventHandler(this.OnPickFilesClicked);
 	}
 }
