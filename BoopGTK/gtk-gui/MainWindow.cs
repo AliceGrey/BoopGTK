@@ -41,7 +41,11 @@ public partial class MainWindow
 
 	private global::Gtk.NodeView nodeview1;
 
+	private global::Gtk.Button BoopBtn;
+
 	private global::Gtk.Button PickFiles;
+
+	private global::Gtk.Entry Port;
 
 	protected virtual void Build()
 	{
@@ -77,8 +81,8 @@ public partial class MainWindow
 		this.Icon = global::Gdk.Pixbuf.LoadFromResource("icon.snek");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		this.Resizable = false;
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 500;
+		this.DefaultWidth = 500;
+		this.DefaultHeight = 700;
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.fixed1 = new global::Gtk.Fixed();
 		this.fixed1.Name = "fixed1";
@@ -170,6 +174,17 @@ public partial class MainWindow
 		w11.X = 13;
 		w11.Y = 354;
 		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.BoopBtn = new global::Gtk.Button();
+		this.BoopBtn.WidthRequest = 300;
+		this.BoopBtn.CanFocus = true;
+		this.BoopBtn.Name = "BoopBtn";
+		this.BoopBtn.UseUnderline = true;
+		this.BoopBtn.Label = global::Mono.Unix.Catalog.GetString("BOOP");
+		this.fixed1.Add(this.BoopBtn);
+		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.BoopBtn]));
+		w12.X = 46;
+		w12.Y = 556;
+		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.PickFiles = new global::Gtk.Button();
 		this.PickFiles.WidthRequest = 200;
 		this.PickFiles.CanFocus = true;
@@ -177,9 +192,21 @@ public partial class MainWindow
 		this.PickFiles.UseUnderline = true;
 		this.PickFiles.Label = global::Mono.Unix.Catalog.GetString("Pick Files");
 		this.fixed1.Add(this.PickFiles);
-		global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.PickFiles]));
-		w12.X = 67;
-		w12.Y = 307;
+		global::Gtk.Fixed.FixedChild w13 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.PickFiles]));
+		w13.X = 93;
+		w13.Y = 313;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.Port = new global::Gtk.Entry();
+		this.Port.WidthRequest = 60;
+		this.Port.CanFocus = true;
+		this.Port.Name = "Port";
+		this.Port.Text = global::Mono.Unix.Catalog.GetString("8080");
+		this.Port.IsEditable = true;
+		this.Port.InvisibleChar = '•';
+		this.fixed1.Add(this.Port);
+		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.Port]));
+		w14.X = 287;
+		w14.Y = 213;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
@@ -189,6 +216,7 @@ public partial class MainWindow
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.locateDSbtn.Clicked += new global::System.EventHandler(this.BtnFindIP_Clicked);
+		this.BoopBtn.Clicked += new global::System.EventHandler(this.OnBoopBtnClicked);
 		this.PickFiles.Clicked += new global::System.EventHandler(this.OnPickFilesClicked);
 	}
 }

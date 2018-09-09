@@ -1,13 +1,16 @@
 ﻿<Properties StartupConfiguration="{BC52F610-AA30-45BD-B256-676128270450}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="BoopGTK/FileUtils.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BoopGTK/MyServer.cs">
     <Files>
-      <File FileName="BoopGTK/NetUtils.cs" Line="101" Column="55" />
+      <File FileName="BoopGTK/NetUtils.cs" Line="125" Column="21" />
       <File FileName="BoopGTK/IPInfo.cs" Line="75" Column="55" />
-      <File FileName="BoopGTK/Program.cs" Line="29" Column="9" />
+      <File FileName="BoopGTK/Program.cs" Line="15" Column="10" />
       <File FileName="BoopGTK/app.config" Line="5" Column="19" />
       <File FileName="BoopGTK/CIAList.cs" Line="14" Column="36" />
-      <File FileName="BoopGTK/MainWindow.cs" Line="55" Column="5" />
-      <File FileName="BoopGTK/FileUtils.cs" Line="10" Column="27" />
+      <File FileName="BoopGTK/MainWindow.cs" Line="194" Column="60" />
+      <File FileName="BoopGTK/FileUtils.cs" Line="9" Column="10" />
+      <File FileName="BoopGTK/MyServer.cs" Line="71" Column="21" />
+      <File FileName="BoopGTK/CsHTTPServer.cs" Line="35" Column="36" />
+      <File FileName="BoopGTK/CsHTTPRequest.cs" Line="41" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

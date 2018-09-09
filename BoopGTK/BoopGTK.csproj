@@ -59,6 +59,7 @@
     <Compile Include="NetUtils.cs" />
     <Compile Include="CIAList.cs" />
     <Compile Include="FileUtils.cs" />
+    <Compile Include="MyServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

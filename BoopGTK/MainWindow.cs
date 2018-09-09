@@ -10,14 +10,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using rmortega77.CsHTTPServer;
 using Gtk;
 using BoopGTK;
+using rmortega77.CsHTTPServer;
 
 public partial class MainWindow : Gtk.Window
 {
-   // CsHTTPServer HTTPServer;
-    // System.Net.Sockets.Socket s; //Socket to tell FBI where the server is
+    CsHTTPServer HTTPServer;
+    System.Net.Sockets.Socket s; //Socket to tell FBI where the server is
     string[] FilesToBoop; //Files to be boop'd
     string ActiveDir; //Used to mount the server
     public MainWindow() : base(Gtk.WindowType.Toplevel)
@@ -43,6 +43,18 @@ public partial class MainWindow : Gtk.Window
   
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
+        //Individual trycatches to make sure everything is off before leaving.
+        try
+        {
+            HTTPServer.Stop();
+        }
+        catch { }
+
+        try
+        {
+            s.Close();
+        }
+        catch { }
         Application.Quit();
         a.RetVal = true;
     }
@@ -138,5 +150,128 @@ public partial class MainWindow : Gtk.Window
         }
         // end if
         OFD.Destroy();
+    }
+
+    protected void OnBoopBtnClicked(object sender, EventArgs e)
+    {
+       
+           
+
+        //TODO: Check network connection
+
+            try
+            {
+              
+
+                //Fastest check first.
+            if (!FilesToBoop.Any())
+                {
+                //TODO: Throw error
+                    return;
+                }
+               
+            if (NetUtils.Validate(targetIP.Text) == false)
+                    {
+                //TODO: Throw error
+                        return;
+                    }
+
+            string DSip = targetIP.Text;
+            int ServerPort = Int32.Parse(Port.Text);
+
+                // THE FIREWALL IS NO LONGER POKED!
+                // THE SNEK IS FREE FROM THE HTTPLISTENER TIRANY!
+
+               // setStatusLabel("Opening the new and improved snek server...");
+             //   enableControls(false);
+            Console.WriteLine("Active Dir");
+            Console.WriteLine(ActiveDir);
+            Console.WriteLine("Port");
+            Console.WriteLine(ServerPort.ToString());
+            string SafeDir = ActiveDir + "/";
+
+
+            HTTPServer = new MyServer(ServerPort, ActiveDir);
+                HTTPServer.Start();
+
+
+                System.Threading.Thread.Sleep(100);
+
+              //  setStatusLabel("Opening socket to send the file list...");
+
+                s = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                IAsyncResult result = s.BeginConnect(DSip, 5000, null, null);
+                result.AsyncWaitHandle.WaitOne(5000, true);
+
+                if (!s.Connected)
+                {
+                    s.Close();
+                    HTTPServer.Stop();
+                  //  MessageBox.Show("Failed to connect to 3DS" + Environment.NewLine + "Please check:" + Environment.NewLine + "Did you write the right IP adress?" + Environment.NewLine + "Is FBI open and listening?", "Connection failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 //   lblIPMarker.Visible = true;
+                //    setStatusLabel("Ready");
+                //    enableControls(true);
+                    return;
+                }
+
+              //  setStatusLabel("Sending the file list...");
+
+                String message = "";
+            String formattedPort = ":" + Port.Text + "/";
+
+                foreach (var CIA in FilesToBoop)
+                {
+                message += NetUtils.GetLocalIPAddress() + formattedPort + System.Web.HttpUtility.UrlEncode(System.IO.Path.GetFileName(CIA)) + "\n";
+                }
+
+                //boop the info to the 3ds...
+                byte[] Largo = BitConverter.GetBytes((uint)Encoding.ASCII.GetBytes(message).Length);
+                byte[] Adress = Encoding.ASCII.GetBytes(message);
+
+                Array.Reverse(Largo); //Endian fix
+
+                s.Send(AppendTwoByteArrays(Largo, Adress));
+
+               // setStatusLabel("Booping files... Please wait");
+                s.BeginReceive(new byte[1], 0, 1, 0, new AsyncCallback(GotData), null); //Call me back when the 3ds says something.
+
+                //#if DEBUG
+            }
+            catch (Exception ex)
+            {
+                //Hopefully, some day we can have all the different exceptions handled... One can dream, right? *-*
+             //   MessageBox.Show("Something went really wrong: " + Environment.NewLine + Environment.NewLine + "\"" + ex.Message + "\"" + Environment.NewLine + Environment.NewLine + "If this keeps happening, please take a screenshot of this message and post it on our github." + Environment.NewLine + Environment.NewLine + "The program will close now", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Quit();
+            }
+            //#endif
+
+    }
+    private void GotData(IAsyncResult ar)
+    {
+
+        // now we unlock the controls...
+        //Spooky "thread safe" way to access UI from ASYNC.
+        Gtk.Application.Invoke(delegate
+        {
+            MessageDialog md = new MessageDialog(this,
+                                                    DialogFlags.DestroyWithParent,
+                                                    MessageType.Error, ButtonsType.Ok,
+                                                    "Booping complete!");
+            md.Run();
+            md.Destroy();
+          //  enableControls(true);
+        });
+
+        s.Close();
+        HTTPServer.Stop();
+    }
+
+    static byte[] AppendTwoByteArrays(byte[] arrayA, byte[] arrayB) //Aux function to append the 2 byte arrays.
+    {
+        byte[] outputBytes = new byte[arrayA.Length + arrayB.Length];
+        Buffer.BlockCopy(arrayA, 0, outputBytes, 0, arrayA.Length);
+        Buffer.BlockCopy(arrayB, 0, outputBytes, arrayA.Length, arrayB.Length);
+        return outputBytes;
     }
 }

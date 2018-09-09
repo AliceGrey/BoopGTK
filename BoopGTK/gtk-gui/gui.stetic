@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/BoopGTK.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="530 563">
+  <widget class="Gtk.Window" id="MainWindow" design-size="530 596">
     <action-group name="Default">
       <action id="FileAction">
         <property name="Type">Action</property>
@@ -51,8 +51,8 @@
     <property name="Icon">resource:icon.snek</property>
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Resizable">False</property>
-    <property name="DefaultWidth">400</property>
-    <property name="DefaultHeight">500</property>
+    <property name="DefaultWidth">500</property>
+    <property name="DefaultHeight">700</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.Fixed" id="fixed1">
@@ -184,6 +184,21 @@ Enter the IP without the port</property>
           </packing>
         </child>
         <child>
+          <widget class="Gtk.Button" id="BoopBtn">
+            <property name="MemberName" />
+            <property name="WidthRequest">300</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">BOOP</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnBoopBtnClicked" />
+          </widget>
+          <packing>
+            <property name="X">46</property>
+            <property name="Y">556</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.Button" id="PickFiles">
             <property name="MemberName" />
             <property name="WidthRequest">200</property>
@@ -194,8 +209,22 @@ Enter the IP without the port</property>
             <signal name="Clicked" handler="OnPickFilesClicked" />
           </widget>
           <packing>
-            <property name="X">67</property>
-            <property name="Y">307</property>
+            <property name="X">93</property>
+            <property name="Y">313</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="Port">
+            <property name="MemberName" />
+            <property name="WidthRequest">60</property>
+            <property name="CanFocus">True</property>
+            <property name="Text" translatable="yes">8080</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">•</property>
+          </widget>
+          <packing>
+            <property name="X">287</property>
+            <property name="Y">213</property>
           </packing>
         </child>
       </widget>

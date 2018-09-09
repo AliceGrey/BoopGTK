@@ -189,5 +189,18 @@ namespace BoopGTK
             return output;
 
         }
+        /// <summary>
+        /// Validates if the specified string is an IPv4 Address
+        /// </summary>
+        /// <param name="ipString">The string to compare</param>
+        /// <returns>True if the address is valid.</returns>
+        public static bool Validate(string ipString)
+        {
+            if (ipString == "0.0.0.0" || ipString == "127.0.0.1")
+            {
+                return false;
+            }
+            return new Regex(@"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$").IsMatch(ipString); //Check the octets
+        }
     }
 }
